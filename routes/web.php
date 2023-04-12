@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FormController::class, 'createForm']);
+Route::get('/autocomplete-search', [CompanyController::class, 'autocompleteSearch']);
+//create a named route call quote.get
+Route::post('/quote', [FormController::class, 'getQuote'])->name('quote.get');

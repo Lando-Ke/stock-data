@@ -59,3 +59,9 @@ This project allows users to search for historical stock data for a given compan
 * Open a web browser and navigate to the displayed URL (usually http://127.0.0.1:8000).
 
 * You should now be able to use the application and search for historical stock data.
+<img width="774" alt="Screenshot 2023-04-13 at 11 42 28" src="https://user-images.githubusercontent.com/6400931/231705658-71051d35-47e6-4c79-8d8b-27b281d5b18c.png">
+
+<img width="1339" alt="Screenshot 2023-04-13 at 11 42 43" src="https://user-images.githubusercontent.com/6400931/231705748-614ccacb-7dd8-47e0-a077-32a862699298.png">
+
+<img width="1379" alt="Screenshot 2023-04-13 at 11 42 55" src="https://user-images.githubusercontent.com/6400931/231705843-b28fbf44-1151-4082-a036-ef56822a88d0.png">
+

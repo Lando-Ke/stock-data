@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 class FormController extends Controller
 {
-    public function createForm()
-    {
-        return view('_form');
-    }
-
     public function showForm()
     {
         $symbols = Company::all()->map(function ($symbol) {

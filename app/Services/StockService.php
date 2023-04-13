@@ -34,7 +34,6 @@ class StockService implements StockServiceInterface
             'region' => 'US'
         ]);
 
-
         $historicalData = $response->json()['prices'] ?? [];
 
         $secondsUntilEndOfDay = now()->endOfDay()->diffInSeconds(now());

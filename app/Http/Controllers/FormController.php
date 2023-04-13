@@ -6,6 +6,8 @@ use App\Http\Requests\StockFormRequest;
 use App\Models\Company;
 use App\Mail\StockDataMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 class FormController extends Controller
 {
     public function createForm()
@@ -33,7 +35,13 @@ class FormController extends Controller
 
        
         if (!app()->environment('local')) {
-            Mail::to($request->email)->send(new StockDataMail($symbol, $startDate, $endDate));
+            try {
+                Mail::to($request->email)->send(new StockDataMail($symbol, $startDate, $endDate));
+                Session::flash('success', 'The email with historical stock data has been sent successfully!');
+            } catch (\Exception $e) {
+                Log::error('Error sending email: ' . $e->getMessage());
+                Session::flash('error', 'There was a problem sending the email. Please try again later.');
+            }
         }
 
         return redirect()->route('stocks.show', [

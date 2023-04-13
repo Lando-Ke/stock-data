@@ -3,18 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Contracts\StockServiceInterface;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function autocompleteSearch(Request $request)
+    public function show(Request $request, StockServiceInterface $stockService, string $symbol, string $startDate, string $endDate)
     {
-          $query = $request->get('query');
+        $companyName = Company::where('symbol', $symbol)->first()->name;
+        $historicalData = $stockService->getHistoricalData($symbol);
 
-          $filterResult = Company::where('name', 'LIKE', '%'. $query. '%')
-          ->orWhere('symbol', 'LIKE', '%'. $query. '%')
-          ->get();
-
-          return response()->json($filterResult);
-    } 
+        return view('stocks.show', [
+            'companyName' => $companyName,
+            'symbol' => $symbol,
+            'historicalData' => $historicalData,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+        ]);
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StockFormRequest;
 use App\Contracts\StockServiceInterface;
 use App\Models\Company;
+use App\Mail\StockDataMail;
+use Illuminate\Support\Facades\Mail;
 
 class FormController extends Controller
 {
@@ -30,17 +32,13 @@ class FormController extends Controller
         $symbol = $request->input('company-symbol');
         $startDate = $request->input('start-date');
         $endDate = $request->input('end-date');
+        
+        //Mail::to($request->email)->send(new StockDataMail($symbol, $request->start_date, $request->end_date));
 
-        $historicalData = $stockService->getHistoricalData($symbol);
-        //get company name from symbol
-        $companyName = Company::where('symbol', $symbol)->first()->name;
-
-        return view('stocks.show', [
-            'companyName' => $companyName,
-            'symbol' => $symbol,
-            'historicalData' => $historicalData,
-            'startDate' => $startDate,
-            'endDate' => $endDate,
+        return redirect()->route('stocks.show', [
+            'symbol' => $symbol, 
+            'start_date' => $startDate, 
+            'end_date' => $endDate
         ]);
     }
 }

@@ -18,6 +18,17 @@
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
             padding: 1rem;
         }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 

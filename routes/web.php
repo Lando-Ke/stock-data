@@ -17,3 +17,5 @@ use App\Http\Controllers\CompanyController;
 
 Route::get('/', [FormController::class, 'showForm'])->name('show-form');
 Route::post('/submit', [FormController::class, 'submitForm'])->name('submit-form');
+
+Route::get('stocks/{symbol}/{start_date}/{end_date}', [CompanyController::class, 'show'])->name('stocks.show');

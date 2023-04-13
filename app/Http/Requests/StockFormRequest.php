@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\DomainIsActiveRule;
 
 class StockFormRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class StockFormRequest extends FormRequest
             'company-symbol' => 'required|exists:companies,symbol',
             'start-date' => 'required|date|before_or_equal:end-date|before_or_equal:today',
             'end-date' => 'required|date|after_or_equal:start-date|before_or_equal:today',
-            'email' => 'required|email',
+            'email' => ['required','email', new DomainIsActiveRule],
         ];
     }
 }

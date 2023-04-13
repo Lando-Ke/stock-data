@@ -33,6 +33,17 @@
 </head>
 
 <body>
+    @if (Session::has('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+    @endif
+
+    @if (Session::has('error'))
+        <div class="alert alert-danger">
+            {{ Session::get('error') }}
+        </div>
+    @endif
     <div class="container">
         <h2 class="my-4">Stock Data : {{ $companyName }} ({{ $symbol }})</h2>
         <div class="data-table-container">

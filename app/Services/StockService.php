@@ -32,6 +32,7 @@ class StockService implements StockServiceInterface
             'symbol' => $symbol,
             'region' => 'US'
         ]);
+        
 
         $historicalData = $response->json()['prices'] ?? [];
 

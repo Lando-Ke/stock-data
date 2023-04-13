@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StockFormRequest;
-use Illuminate\Http\Request;
+use App\Contracts\StockServiceInterface;
 use App\Models\Company;
 
 class FormController extends Controller
@@ -21,12 +21,26 @@ class FormController extends Controller
                 'value' => $symbol->symbol
             ];
         });
-    
+
         return view('form', ['symbols' => $symbols]);
     }
 
-    public function submitForm(StockFormRequest $request)
+    public function submitForm(StockFormRequest $request, StockServiceInterface $stockService)
     {
-        // Handle form submission here
+        $symbol = $request->input('company-symbol');
+        $startDate = $request->input('start-date');
+        $endDate = $request->input('end-date');
+
+        $historicalData = $stockService->getHistoricalData($symbol);
+        //get company name from symbol
+        $companyName = Company::where('symbol', $symbol)->first()->name;
+
+        return view('stocks.show', [
+            'companyName' => $companyName,
+            'symbol' => $symbol,
+            'historicalData' => $historicalData,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+        ]);
     }
 }

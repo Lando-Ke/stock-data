@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Contracts\StockServiceInterface;
+use App\Services\StockService;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -44,6 +44,11 @@
             {{ Session::get('error') }}
         </div>
     @endif
+    @if (session('warning'))
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
+    @endif
     <div class="container">
         <h2 class="my-4">Stock Data : {{ $companyName }} ({{ $symbol }})</h2>
         <div class="data-table-container">

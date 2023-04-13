@@ -45,6 +45,6 @@ class StockService implements StockServiceInterface
 
     public function getCompanyNameBySymbol($symbol) : string
     {
-        return Company::where('symbol', $symbol)->first()->name;
+        return optional(Company::where('symbol', $symbol)->first())->name ?? '';
     }
 }

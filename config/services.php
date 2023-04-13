@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'rapid_api' => [
+        'host' => env('RAPID_API_HOST'),
+        'key' => env('RAPID_API_KEY'),
+    ],
+
 ];

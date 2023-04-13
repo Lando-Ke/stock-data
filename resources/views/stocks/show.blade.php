@@ -57,12 +57,75 @@
         </div>
     </div>
 
+    <div class="container">
+        <div class="my-4">
+            <canvas id="historical-data-chart"></canvas>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.1.0/dist/chartjs-adapter-luxon.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#historical-data').DataTable();
+        });
+        const chartData = {
+            labels: [],
+            datasets: [{
+                    label: 'Open',
+                    data: [],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                },
+                {
+                    label: 'Close',
+                    data: [],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                },
+            ],
+        };
+
+        @foreach ($historicalData as $data)
+            @php
+                $dataDate = date('Y-m-d', $data['date']);
+            @endphp
+            @if ($dataDate >= $startDate && $dataDate <= $endDate)
+                chartData.labels.push("{{ $dataDate }}");
+                chartData.datasets[0].data.push({{ $data['open'] ?? 'null' }});
+                chartData.datasets[1].data.push({{ $data['close'] ?? 'null' }});
+            @endif
+        @endforeach
+
+        // Create chart
+        const ctx = document.getElementById('historical-data-chart').getContext('2d');
+        const historicalDataChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            parser: 'yyyy-MM-dd',
+                            unit: 'day',
+                        },
+                        ticks: {
+                            displayFormats: {
+                                day: 'yyyy-MM-dd',
+                            },
+                        },
+                    },
+                    y: {
+                        beginAtZero: false,
+                    },
+                },
+            },
         });
     </script>
 </body>

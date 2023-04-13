@@ -15,7 +15,5 @@ use App\Http\Controllers\CompanyController;
 |
 */
 
-Route::get('/', [FormController::class, 'createForm']);
-Route::get('/autocomplete-search', [CompanyController::class, 'autocompleteSearch']);
-//create a named route call quote.get
-Route::post('/quote', [FormController::class, 'getQuote'])->name('quote.get');
+Route::get('/', [FormController::class, 'showForm'])->name('show-form');
+Route::post('/submit', [FormController::class, 'submitForm'])->name('submit-form');

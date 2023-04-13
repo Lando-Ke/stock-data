@@ -32,8 +32,11 @@ class FormController extends Controller
         $symbol = $request->input('company-symbol');
         $startDate = $request->input('start-date');
         $endDate = $request->input('end-date');
-        
-        //Mail::to($request->email)->send(new StockDataMail($symbol, $request->start_date, $request->end_date));
+
+       
+        if (!app()->environment('local')) {
+            Mail::to($request->email)->send(new StockDataMail($symbol, $request->start_date, $request->end_date));
+        }
 
         return redirect()->route('stocks.show', [
             'symbol' => $symbol, 

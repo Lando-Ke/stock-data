@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StockFormRequest;
 use Illuminate\Http\Request;
 use App\Models\Company;
 
@@ -24,7 +25,7 @@ class FormController extends Controller
         return view('form', ['symbols' => $symbols]);
     }
 
-    public function submitForm(Request $request)
+    public function submitForm(StockFormRequest $request)
     {
         // Handle form submission here
     }

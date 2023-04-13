@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\StockServiceInterface;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Company;
 
 class StockService implements StockServiceInterface
 {
@@ -32,7 +33,7 @@ class StockService implements StockServiceInterface
             'symbol' => $symbol,
             'region' => 'US'
         ]);
-        
+
 
         $historicalData = $response->json()['prices'] ?? [];
 
@@ -41,5 +42,10 @@ class StockService implements StockServiceInterface
         Cache::put($cacheKey, $historicalData, $secondsUntilEndOfDay);
 
         return $historicalData;
+    }
+
+    public function getCompanyNameBySymbol($symbol) : string
+    {
+        return Company::where('symbol', $symbol)->first()->name;
     }
 }
